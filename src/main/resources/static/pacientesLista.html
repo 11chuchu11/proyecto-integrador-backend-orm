@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:https="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Clinica Odontologica: Odontologos</title>
+    <title>Clinica Odontologica: Pacientes</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/get_odontologo.js"></script>
+    <script type="text/javascript" src="/js/get_paciente.js"></script>
 </head>
 <body>
 <div class="container">
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link" href="/odontologosLista.html/">Todos</a>
+            <a class="nav-link" href="/pacientesLista.html/">Todos</a>
         </li>
     </ul>
 
-    <div id="div_odontologo_table">
-        <h1>Odontologos</h1>
+    <div id="div_paciente_table">
+        <h1>Pacientes</h1>
         <div class="row col-md-6 table-responsive">
-            <table id="odontologoTable" class="table table-striped">
+            <table id="pacienteTable" class="table table-striped">
                 <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Dni</th>
                 </tr>
                 </thead>
-                <tbody id="odontologoTableBody">
+                <tbody id="pacienteTableBody">
 
                 </tbody>
             </table>

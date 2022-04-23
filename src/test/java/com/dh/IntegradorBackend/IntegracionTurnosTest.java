@@ -33,7 +33,6 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 
-//DEBIDO QUE HAY UN BUG DE LOOP INFINITO, EL CUAL NO SE PUDO SOLUCIONAR PIDIENDO LA AYUDA DEL PROFESOR, AL REALIZAR UN GET AL ENDPOINT TODOS LOS TESTS RELACIONADOS CON ESTE METODO VAN A FALLAR
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
@@ -92,8 +91,8 @@ public class IntegracionTurnosTest {
         Turno turno = new Turno(pacienteCargado,odontologoCargado);
         String response = "{\"id\":1," +
                 "\"paciente\":{\"id\":1,\"nombre\":\"Paciente\",\"apellido\":\"altoPaciente\",\"email\":\"elmaildelpaciente@gmail.com\",\"dni\":2342365,\"fechaIngreso\":null,\"" +
-                "domicilio\":{\"id\":1,\"calle\":\"callePaciente\",\"localidad\":\"localidadPaciente\",\"provincia\":\"provinciaPaciente\",\"numero\":3245},\"turnos\":[]}," +
-                "\"odontologo\":{\"id\":1,\"nombre\":\"Pepe\",\"apellido\":\"Pepardo\",\"matricula\":45764,\"turnos\":[]}," +
+                "domicilio\":{\"id\":1,\"calle\":\"callePaciente\",\"localidad\":\"localidadPaciente\",\"provincia\":\"provinciaPaciente\",\"numero\":3245}}," +
+                "\"odontologo\":{\"id\":1,\"nombre\":\"Pepe\",\"apellido\":\"Pepardo\",\"matricula\":45764}," +
                 "\"fecha\":null}";
 
 
@@ -152,8 +151,8 @@ public class IntegracionTurnosTest {
         Turno turno = new Turno(1L,pacienteCargado,odontologoCargado);
         String response = "{\"id\":1," +
                 "\"paciente\":{\"id\":1,\"nombre\":\"Paciente\",\"apellido\":\"altoPaciente\",\"email\":\"elmaildelpaciente@gmail.com\",\"dni\":2342365,\"fechaIngreso\":null,\"" +
-                "domicilio\":{\"id\":1,\"calle\":\"callePaciente\",\"localidad\":\"localidadPaciente\",\"provincia\":\"provinciaPaciente\",\"numero\":3245},\"turnos\":[]}," +
-                "\"odontologo\":{\"id\":2,\"nombre\":\"ElOdontologo\",\"apellido\":\"altoCrack\",\"matricula\":4556,\"turnos\":[]}," +
+                "domicilio\":{\"id\":1,\"calle\":\"callePaciente\",\"localidad\":\"localidadPaciente\",\"provincia\":\"provinciaPaciente\",\"numero\":3245}}," +
+                "\"odontologo\":{\"id\":2,\"nombre\":\"ElOdontologo\",\"apellido\":\"altoCrack\",\"matricula\":4556}," +
                 "\"fecha\":null}";
 
         String turnoJson = writer.writeValueAsString(turno);
