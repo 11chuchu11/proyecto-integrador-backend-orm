@@ -23,6 +23,7 @@ public class Turno {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Paciente paciente;
 
     public Turno(Long id, Paciente paciente, Odontologo odontologo) {
@@ -33,6 +34,7 @@ public class Turno {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "odontologo_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Odontologo odontologo;
     @Column
     private LocalDate fecha;

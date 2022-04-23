@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear odontologos</title>
+</head>
+<body>
+    <main>
+        <h1>Creacion de odontologos</h1>
+        <form method="post" id="formDentist">
+            <label for="nameDentist">Nombre del odontologo:</label>
+            <input type="text" name="nameDentist" id="nameDentist">
+            <label for="surnameDentist">Apellido del odontologo:</label>
+            <input type="text" name="surnameDentist" id="surnameDentist">
+            <label for="registerDentist">Matricula odontologo</label>
+            <input type="number" name="registerDentist" id="registerDentist">
+            <button id="submitButton">Enviar</button>
+        </form>
+        <div id="showDentist">
+            <h2>Odontologo Cargado</h2>
+            <ul id="uploadedDentist"></ul>
+        </div>
+    </main>
+    <script src="postDentist.js" defer></script>
+</body>
+</html>

@@ -30,6 +30,7 @@ public class Paciente {
 
 
     @OneToMany(mappedBy = "paciente",fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Turno> turnos = new HashSet<>();
 
     public Paciente(Long id, String nombre, String apellido, String email, int dni, Domicilio domicilio) {
