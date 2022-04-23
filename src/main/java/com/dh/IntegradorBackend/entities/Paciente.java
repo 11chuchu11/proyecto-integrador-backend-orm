@@ -27,9 +27,36 @@ public class Paciente {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
     private Domicilio domicilio;
+
+
     @OneToMany(mappedBy = "paciente",fetch = FetchType.LAZY)
     private Set<Turno> turnos = new HashSet<>();
 
+    public Paciente(Long id, String nombre, String apellido, String email, int dni, Domicilio domicilio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.dni = dni;
+        this.domicilio = domicilio;
+    }
+
+    public Paciente(String nombre, String apellido, String email, int dni, LocalDate fechaIngreso, Domicilio domicilio) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.dni = dni;
+        this.fechaIngreso = fechaIngreso;
+        this.domicilio = domicilio;
+    }
+
+    public Paciente( String nombre, String apellido, String email, int dni, Domicilio domicilio) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.dni = dni;
+        this.domicilio = domicilio;
+    }
 
     public Paciente() {
     }

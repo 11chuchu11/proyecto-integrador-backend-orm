@@ -1,6 +1,8 @@
 package com.dh.IntegradorBackend.service;
 
 import com.dh.IntegradorBackend.entities.Odontologo;
+import com.dh.IntegradorBackend.exceptions.BadRequestException;
+import com.dh.IntegradorBackend.exceptions.ResourceNotFoundException;
 import com.dh.IntegradorBackend.repository.OdontologoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,14 +28,21 @@ public class OdontologoService {
         return (Odontologo) repository.save(odontologo);
     }
 
-    public Odontologo actualizarODontologo(Odontologo odontologo){
+    public Odontologo actualizarODontologo(Odontologo odontologo) throws BadRequestException {
         if (buscarOdontologo(odontologo.getId()).isPresent()){
             return (Odontologo) repository.save(odontologo);
         }
-        return null;
+        else {
+            throw new BadRequestException("No se encontro el odontologo, no fue actualizado");
+        }
     }
 
-    public void eliminarOdontologo(Long id){
-        repository.deleteById(id);
+
+    public void eliminarOdontologo(Long id) throws ResourceNotFoundException {
+        Optional<Odontologo> odontologo = buscarOdontologo(id);
+        if (odontologo.isPresent())
+            repository.deleteById(id);
+        else
+            throw new ResourceNotFoundException("No existe el paciente con el id " + id + ", no se pudo eliminar.");
     }
 }

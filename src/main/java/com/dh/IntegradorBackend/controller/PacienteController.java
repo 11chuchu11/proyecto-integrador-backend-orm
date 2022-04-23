@@ -1,6 +1,8 @@
 package com.dh.IntegradorBackend.controller;
 
 import com.dh.IntegradorBackend.entities.Paciente;
+import com.dh.IntegradorBackend.exceptions.BadRequestException;
+import com.dh.IntegradorBackend.exceptions.ResourceNotFoundException;
 import com.dh.IntegradorBackend.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,13 +41,9 @@ public class PacienteController {
 
 
     @GetMapping("/email")
-    public ResponseEntity<Paciente> buscar(@RequestParam String email) {
+    public ResponseEntity<Paciente> buscar(@RequestParam String email) throws ResourceNotFoundException {
         Optional<Paciente> paciente = service.buscarPorEmail(email);
-        ResponseEntity response = ResponseEntity.notFound().build();
-        if (paciente.isPresent()) {
-            response = ResponseEntity.ok(paciente.get());
-        }
-        return response;
+        return ResponseEntity.ok(paciente.get());
     }
 
     @PostMapping
@@ -54,17 +52,13 @@ public class PacienteController {
     }
 
     @PutMapping
-    public ResponseEntity<Paciente> actualizar(@RequestBody Paciente paciente) {
+    public ResponseEntity<Paciente> actualizar(@RequestBody Paciente paciente) throws BadRequestException {
         return ResponseEntity.ok(service.actualizarPaciente(paciente));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminar(@PathVariable Long id) {
-        ResponseEntity response = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente no encontrado");
-        if (service.buscarPaciente(id).isPresent()) {
-            service.eliminarPaciente(id);
-            response = ResponseEntity.ok("Paciente eliminado");
-        }
-        return response;
+    public ResponseEntity<String> eliminar(@PathVariable Long id) throws ResourceNotFoundException {
+        service.eliminarPaciente(id);
+        return ResponseEntity.ok("Paciente eliminado");
     }
 }

@@ -1,6 +1,12 @@
 package com.dh.IntegradorBackend.controller;
 
+import com.dh.IntegradorBackend.entities.Odontologo;
+import com.dh.IntegradorBackend.entities.Paciente;
 import com.dh.IntegradorBackend.entities.Turno;
+import com.dh.IntegradorBackend.exceptions.BadRequestException;
+import com.dh.IntegradorBackend.exceptions.ResourceNotFoundException;
+import com.dh.IntegradorBackend.service.OdontologoService;
+import com.dh.IntegradorBackend.service.PacienteService;
 import com.dh.IntegradorBackend.service.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +22,13 @@ public class TurnoController {
 
     @Autowired
     private TurnoService service;
+
+    @Autowired
+    private PacienteService pacienteService;
+
+    @Autowired
+    private OdontologoService odontologoService;
+
 
     @GetMapping
     public ResponseEntity<List<Turno>> listar(){
@@ -39,21 +52,25 @@ public class TurnoController {
 
     @PostMapping
     public ResponseEntity<Turno> guardar(@RequestBody Turno turno){
-        return ResponseEntity.ok(service.guardarTurno(turno));
-    }
-
-    @PutMapping
-    public ResponseEntity<Turno> actualizar(@RequestBody Turno turno){
-        return ResponseEntity.ok(service.actualizarTurno(turno));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminar(@PathVariable Long id){
-        ResponseEntity response = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Turno no encontrado");
-        if (service.buscarTurno(id).isPresent()){
-            service.eliminarTurno(id);
-            response = ResponseEntity.ok("Turno eliminado");
+        ResponseEntity<Turno> response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        Optional<Paciente> pacienteBus = pacienteService.buscarPaciente(turno.getPaciente().getId());
+        Optional<Odontologo> odontologoBus = odontologoService.buscarOdontologo(turno.getPaciente().getId());
+        if (pacienteBus.isPresent() && odontologoBus.isPresent()){
+            response = ResponseEntity.ok(service.guardarTurno(turno));
         }
         return response;
     }
+
+    @PutMapping
+    public ResponseEntity<Turno> actualizar(@RequestBody Turno turno) throws BadRequestException {
+        Turno turnoActualizado = service.actualizarTurno(turno);
+        return ResponseEntity.ok(turnoActualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminar(@PathVariable Long id) throws ResourceNotFoundException {
+            service.eliminarTurno(id);
+            return ResponseEntity.ok("Turno eliminado");
+    }
+
 }

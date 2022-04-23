@@ -1,7 +1,8 @@
 package com.dh.IntegradorBackend.controller;
 
 import com.dh.IntegradorBackend.entities.Domicilio;
-import com.dh.IntegradorBackend.entities.Paciente;
+import com.dh.IntegradorBackend.exceptions.BadRequestException;
+import com.dh.IntegradorBackend.exceptions.ResourceNotFoundException;
 import com.dh.IntegradorBackend.service.DomicilioService;
 import com.dh.IntegradorBackend.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,12 +48,12 @@ public class DomicilioController {
     }
 
     @PutMapping
-    public ResponseEntity<Domicilio> actualizar(@RequestBody Domicilio domicilio){
+    public ResponseEntity<Domicilio> actualizar(@RequestBody Domicilio domicilio) throws BadRequestException {
         return ResponseEntity.ok(service.actualizarDomicilio(domicilio));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminar(@PathVariable Long id){
+    public ResponseEntity<String> eliminar(@PathVariable Long id) throws ResourceNotFoundException {
         ResponseEntity response = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente no encontrado");
         if (service.buscarDomicilio(id).isPresent()){
             service.eliminarDomicilio(id);
